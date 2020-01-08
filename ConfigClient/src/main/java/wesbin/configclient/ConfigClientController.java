@@ -1,5 +1,6 @@
 package wesbin.configclient;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class ConfigClientController {
         this.applicationConfiguration = applicationConfiguration;
     }
 
+    @GetMapping("/message")
     public Map<String, String> welcome(){
 
         Map<String, String> map = new HashMap<String, String>();
