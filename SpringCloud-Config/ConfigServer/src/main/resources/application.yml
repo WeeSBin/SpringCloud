@@ -8,7 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: "https://github.com/WeeSBin/SpringCloudConfig.git"
+          uri: "https://github.com/WeeSBin/SpringCloud.git"
           search-paths: "ConfigRepo"
 
 management:
