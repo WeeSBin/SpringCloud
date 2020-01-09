@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: "default"
+  cloud:
+    config:
+      uri: "http://localhost:7777"
+  application:
+    name: msa
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

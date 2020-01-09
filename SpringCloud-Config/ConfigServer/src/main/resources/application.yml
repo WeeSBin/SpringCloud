@@ -1,0 +1,18 @@
+server:
+  port: 7777
+
+spring:
+  application:
+    name: "config-server"
+  cloud:
+    config:
+      server:
+        git:
+          uri: "https://github.com/WeeSBin/SpringCloudConfig.git"
+          search-paths: "ConfigRepo"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
