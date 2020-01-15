@@ -1,1 +1,35 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        streams:
+          binder:
+            configuration:
+              commit.interval.mms: 1000
+              default:
+                key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              pcout:
+                producer:
+                  key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                  value.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
+              pcin:
+                consumer:
+                  key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                  value.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
+      bindings:
+        pvout:
+          destination: pvs
+        pvin:
+          destination: pvs
+        pcin:
+          destination: pcs
+          consumer.use-native-encoding: true
+          group: pcs
+          content-type: application/json
+        pcout:
+          destination: pcs
+          producer.use-native-encoding: true
 
+server:
+  port: 8888
