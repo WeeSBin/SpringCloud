@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group = 'circuitbreaker'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+def resilience4jVersion = '1.2.0'
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-jersey'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+    // resilience4j core
+    compile "io.github.resilience4j:resilience4j-circuitbreaker:${resilience4jVersion}"
+    compile "io.github.resilience4j:resilience4j-ratelimiter:${resilience4jVersion}"
+    compile "io.github.resilience4j:resilience4j-retry:${resilience4jVersion}"
+    compile "io.github.resilience4j:resilience4j-bulkhead:${resilience4jVersion}"
+    compile "io.github.resilience4j:resilience4j-cache:${resilience4jVersion}"
+    compile "io.github.resilience4j:resilience4j-timelimiter:${resilience4jVersion}"
+
+    // resilience4j boot
+    compile "io.github.resilience4j:resilience4j-spring-boot2:${resilience4jVersion}"
+    compile('org.springframework.boot:spring-boot-starter-aop')
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
