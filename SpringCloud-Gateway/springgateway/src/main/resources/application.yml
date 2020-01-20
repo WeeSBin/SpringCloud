@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: apigateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      metrics:
+        enabled: true
+      routes:
+        - id: items
+          uri: lb://ITEMS
+          predicates:
+            - Path=/item/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: customCircuit
+                fallbackUri: forward:/client/fallback/fail
+        - id: clients
+          uri: lb://CLIENTS
+          predicates:
+            - Path=/client/**
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8010/eureka
+
+management:
+  endpoint:
+    prometheus:
+      enabled: true
+    gateway:
+      enabled: true
+    metrics:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: health, info, httptrace, metrics, threaddump, mappings, prometheus
+
+# reference => main/resources/memo.txt

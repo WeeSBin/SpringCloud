@@ -1,0 +1,35 @@
+!!
+Route Predicate Factories(라우트 조건부 팩토리)
+    - Gateway는 HandlerMapping 기반 구조의 일부로서 경로를 매칭
+!!
+##spring.cloud.gateway.routes: - predicates:
+#Path => 요청이 /foo/1 혹은 /bar/2 일 때 매치 됩니다.
+    - Path=/foo/{segment},/bar/{segment}
+
+#After => 해당 시간 이후에 오는 요청과 매칭, Before => 해당 시간 이전에 오는 요청과 매칭
+#Between => (dateTime1, dateTime2), 시간 사이에 오는 요청과 매칭
+    - After=2019-12-11T15:00:00.000-07:00[America/Denver]
+
+#Header => (headerName, reg), X-Request-Id과 \d+(정규식)에 일치하는 값을 가지는 header와 매칭
+    - Header=X-Request-Id, \d+
+
+#Method => request가 GET 메소드일 경우
+    - Method=GET
+
+#RemoteArr => 클라이언트 IP가 192.168.1.1/24와 같을 경우에 매치
+    - RemoteAddr=192.168.1.1/24
+
+!!
+GatewayFilter Factories(게이트웨이 필터 팩토리)
+    - 요청이나 응답을 수정할 수 있게 해준다.
+!!
+## spring.cloud.gateway.routes: - filters:
+#AddRequestHeader => (name, val), 모든 요청에 X-Request-Foo: Bar 헤더를 추가
+    - AddRequestHeader=X-Request-Foo, Bar
+#AddRequestParameter => (name, val), 모든 요청에 foo=bar 를 내려보낸다.
+    - AddRequestParameter=foo, bar
+#CircuitBreaker => 요청을 fallbackUri로 forwarding한다.
+    - name: CircuitBreaker
+      args:
+        name: circuitName
+        fallbackUri: forward:/client/fallback/fail
