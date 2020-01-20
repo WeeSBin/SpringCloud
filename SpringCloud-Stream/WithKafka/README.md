@@ -1,1 +1,1 @@
-#SpringCloudStream With Kafka
+#SpringCloudStream with Kafka
