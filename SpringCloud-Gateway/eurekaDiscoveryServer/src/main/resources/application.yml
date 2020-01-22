@@ -10,3 +10,14 @@ eureka:
     fetch-registry: false
     service-url:
       defaultZone: http://localhost:8010/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    prometheus:
+      enabled: true
+    health:
+      show-details: always
